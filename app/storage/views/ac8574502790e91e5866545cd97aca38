@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admins</title>
+	<?php echo HTML::style('css/bootstrap.css'); ?>
+
+	<?php echo HTML::style('css/admins.css'); ?>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
+</head>
+<body>
+<?php echo HTML::script('js/jquery1.js'); ?>
+
+    <section class="top"></section>
+    <div class="banner">
+       <ul>
+        <li>*ADMIN</li>
+        <li><?php echo $__env->yieldContent('banner'); ?></li>
+       </ul>
+
+    </div>
+	<?php echo $__env->yieldContent('errors'); ?>
+	
+	<div class="nav">
+		<?php echo $__env->yieldContent('nav'); ?>
+	</div>
+
+	<div class="content">
+		<?php echo $__env->yieldContent('content'); ?>
+	</div>
+
+
+	<div class="footer">
+		
+	</div>
+
+
+<!--<script>
+		$(document).ready(function(){
+
+			var info = $('.info');
+			
+			$('form').submit(function(e){
+				e.preventDefault();
+
+				var formData = new FormData();
+				formData.append('message',$('#message').val());
+
+				$.ajax({
+					url:'email',
+					method:'post',
+					processData:false,
+					contentType:false,
+					cache:false,
+					dataType: 'json',
+					data: formData,
+					success:function(data){
+						info.hide().find('ul').empty();
+						if(!data.success){
+							$.each(data.errors,function(index, error){
+								info.find('ul').append('<li>'+error+'</li>');
+							});
+							info.slideDown();
+						}else{
+							info.find('ul').append('<li>ITS WORKING</li>');
+							info.slideDown();
+						}
+					},
+					error:function(){}
+
+				});
+
+			});
+
+		});		
+	</script>
+-->
+</body>
+</html>

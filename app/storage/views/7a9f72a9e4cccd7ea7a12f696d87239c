@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<?php echo HTML::style('css/userspage.css'); ?>
+
+	<title>Users Name</title>
+</head>
+<body>
+		<div class="nav">
+			<?php echo $__env->yieldContent('nav'); ?>
+		</div>
+
+		<div class="content">
+			<?php echo $__env->yieldContent('content'); ?>
+		</div>
+
+		<div class="footer">
+			<section>
+				<span>about</span>
+			</section>
+			<section>
+				<span>about</span>
+			</section>
+			<section>
+				<span>about</span>
+			</section>
+		</div>
+
+</body>
+</html>

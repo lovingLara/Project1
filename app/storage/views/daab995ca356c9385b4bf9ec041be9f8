@@ -1,0 +1,43 @@
+<?php $__env->startSection('banner'); ?>
+  <a href="<?php echo URL::route('logout'); ?>">Logout</a>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('nav'); ?>
+
+			<ul>
+				<li><a href="<?php echo URL::route('index'); ?>">Home</a></li>
+				<li><a href="<?php echo URL::route('headlines'); ?>">Headlines</a></li>
+				<li><a href="<?php echo URL::route('email'); ?>">Email</a></li>
+				<li><a href="<?php echo URL::route('view'); ?>">ViewPost</a></li>
+				<li><a href="">Pendings</a></li>
+				<li><a href="<?php echo URL::route('view_User'); ?>">ViewUsers</a></li>
+			</ul>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div>
+<h4>List of All Posts</h4>
+</div>
+<div class="table-responsive">
+		<table class="table table-bordered" data-height='299'>
+			<thead>
+				<th>Title</th>
+				<th>Date Submitted</th>
+				<th>Action</th>
+			</thead>
+			<?php foreach($post as $posts): ?>
+			<tr>
+				<td><?php echo $posts->title; ?></td>
+				<td><?php echo $posts->created_at->toFormattedDateString(); ?></td>
+				<td><a href="<?php echo URL::route('view_post', array('id' => $posts->id)); ?>">ReviewPost</a> | 
+					<a href="<?php echo URL::route('delete', array('id' => $posts->id)); ?>">Delete</a> | 
+					<a href="<?php echo URL::route('update', array('id' => $posts->id)); ?>">Confirm</a> |
+					<a href="<?php echo URL::route('mailPost', array('id' => $posts->id)); ?>">MailPost</a>
+				</td>
+			</tr>
+			<?php endforeach; ?>		
+		</table>
+</div>	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.admins', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

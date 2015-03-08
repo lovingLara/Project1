@@ -1,0 +1,39 @@
+<?php $__env->startSection('banner'); ?>
+  <a href="<?php echo URL::route('logout'); ?>">Logout</a>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('nav'); ?>
+
+			<ul>
+				<li><a href="<?php echo URL::route('index'); ?>">Home</a></li>
+				<li><a href="<?php echo URL::route('headlines'); ?>">Headlines</a></li>
+				<li><a href="<?php echo URL::route('email'); ?>">Email</a></li>
+				<li><a href="<?php echo URL::route('view'); ?>">ViewPost</a></li>
+				<li><a href="">Pendings</a></li>
+				<li><a href="<?php echo URL::route('view_User'); ?>">ViewUsers</a></li>
+			</ul>
+
+<?php $__env->stopSection(); ?>
+
+
+
+<?php $__env->startSection('content'); ?>
+
+<div class="row">
+	<div class="col-md-6"><img src="<?php echo asset('img/' . $post->image); ?>" /></div>
+	<div class="col-md-6">
+		<span><?php echo $post->title; ?></span>
+	<blockquote>
+	<?php echo $post->content; ?>
+
+	<cite>adasda</cite>
+	</blockquote>
+	
+	<a href="<?php echo URL::route('update', array('id' => $post->id)); ?>">Valid</a>
+	</div>
+
+	
+</div>
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.admins', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

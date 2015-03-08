@@ -1,0 +1,118 @@
+<?php $__env->startSection('nav'); ?>
+	<div class="hidden-nav">
+		<ul>
+			<li>Home</li>
+			<li>Sports</li>
+			<li>General</li>
+			<li>News</li>
+			<li>Entertainment</li>
+		</ul>
+	</div>
+	<div class="logo">
+		<h4>Tacloban <span>Times</span></h4>
+	</div>
+	<div class="np"></div>
+	<div class="parent-nav">
+		<div>
+			<ul>
+				<li><a href=""><img src="/img/facebook.ico" class="icons"/></a></li>
+				<li><a href=""><img src="/img/twitter.ico" class="icons"/></a></li>
+				<li><a href="<?php echo URL::route('profile'); ?>" class="icons"><img src="<?php echo asset('img/' . $users->pic); ?>" /></a>
+					<ul>
+						<li><a href="">Settings</a></li>
+						<li><a href="<?php echo URL::route('logout'); ?>">Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="mid">
+		<?php echo $date->toFormattedDateString(); ?>
+
+	</div>
+	<div class="below-nav">
+		<ul>
+			<li><a href="<?php echo URL::route('dashboard'); ?>">NEWSFEED</a></li>
+			<li><a href="<?php echo URL::route('viewHow'); ?>">HOW TO SUBMIT</a></li>
+			<li><a href="">VIDEOS</a></li>
+			<li class="pencil"><a href="<?php echo URL::route('newPost'); ?>">SUBMIT A REPORT</a></li>
+			
+		</ul>
+	</div>
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('content'); ?>
+	<div class="view-post">
+		<div class="body">
+			<h3><?php echo $posts->title; ?></h3>
+			<h6><?php echo $posts->created_at->toFormattedDateString(); ?></h6>
+			<span>By <?php echo $posts->user->fname; ?></span>
+			<p><img src="<?php echo asset('img/' . $posts->image); ?>" class="img-rounded"/></p>
+			<code><?php echo $posts->content; ?></code><br>
+			<video width="600" height="500" controls preload="metadata">
+			    <source src="<?php echo asset('img/'. $posts->videos); ?>" type='video/mp4 codecs="vp8.0, vorbis"' >
+			    <source src="<?php echo asset('img/'. $posts->videos); ?>" type='video/webm'>
+			    <source src="<?php echo asset('img/'. $posts->videos); ?>" type='video/m4v'>
+			    <source src="<?php echo asset('img/'. $posts->videos); ?>" type='video/x-m4v'>
+			    <source src="<?php echo asset('img/'. $posts->videos); ?>" type='video/ogg'>
+
+
+			    Your browser does not support the video tag.
+			</video>
+			<p></p>
+		</div>
+            <a href="<?php echo URL::route('like', array('id' => $posts->id)); ?>" class="like">Like<span class="badge"><?php echo $posts->likes; ?></span></a>
+			<a href="#" class="like" id="like">Like</a>
+
+   <script>
+       $(document).ready(function(){
+           $('#like').click(function(e){
+               e.preventDefault();
+
+
+                var val
+
+               $.ajax({
+                url:'/like{id}',
+                method:'get',
+                data:{},
+                processData:false,
+                contentType:false,
+                cache:false,
+                sucess:function(data){
+
+                    console.log(data);
+                },
+                error:function(){}
+               });
+           })
+
+       });
+
+   </script>
+
+		<hr>
+		<section>
+			<h5>LEAVE US A COMMENT <span class="badge"><?php echo $posts->comment->count(); ?></span></h5>
+
+			<form action="<?php echo URL::route('createComment', array('id' => $posts->id)); ?>" method="post">
+				<div class="form-group">
+					<input class="form-control" type="text" placeholder="Comment..." name="content">
+				</div>
+			<input type="submit" class="btn btn-default" />
+			</form>
+		</section><br>
+
+		<section class="comments"> 
+			<?php foreach($posts->comment as $comments): ?>
+			        <blockquote><?php echo $comments->content; ?></blockquote>
+			<?php endforeach; ?>
+		</section>
+	</div>
+
+<?php $__env->stopSection(); ?>
+
+
+
+

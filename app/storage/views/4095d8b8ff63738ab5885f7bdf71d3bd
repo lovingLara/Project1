@@ -1,0 +1,79 @@
+<?php $__env->startSection('banner'); ?>
+  <a href="<?php echo URL::route('logout'); ?>">Logout</a>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('nav'); ?>	
+		
+			<ul>
+				<li><a href="<?php echo URL::route('index'); ?>">Home</a></li>
+				<li><a href="<?php echo URL::route('headlines'); ?>">Headlines</a></li>
+				<li><a href="<?php echo URL::route('email'); ?>">Email</a></li>
+				<li><a href="<?php echo URL::route('view'); ?>">ViewPost</a></li>
+				<li><a href="">Pendings</a></li>
+				<li><a href="<?php echo URL::route('view_User'); ?>">ViewUsers</a></li>
+			</ul>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<hr>
+<div class="search">
+	<?php echo Form::open(array('url'=>'','method'=>'post')); ?>
+
+	    <?php echo Form::text('keyword',null,array(
+	        'class' => 'form-control input-lg',
+	        'placeholder' => 'Enter keyword...(e.g. post title)'
+	    )); ?><bR>
+	    <div class="submit1">
+	    <?php echo Form::submit('Search',array(
+	        'class' => 'btn btn-info btn-lg btn-block',
+	    )); ?>
+
+	    </div>
+	<?php echo Form::close(); ?>
+
+    </div>
+<br>
+    <div class="searchs">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <th>Title</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </thead>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+
+    $('form').submit(function(e){
+    e.preventDefault();
+
+         $.ajax({
+             url:'/admin/search',
+             method:'post',
+             data: {},
+             processData:false,
+             contentType:false,
+             cache:false,
+             sucess:function(data){},
+             error:function(){}
+             });
+        });
+    });
+</script>
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.admins', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
