@@ -1,7 +1,0 @@
-<?php $__env->startSection('nav'); ?>	
-	
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('content'); ?>
-	<span>ADMIN</span>
-<?php $__env->stopSection(); ?>

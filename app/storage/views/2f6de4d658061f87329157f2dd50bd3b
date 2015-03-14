@@ -1,6 +1,0 @@
-<h3><?php echo $content->title; ?></h3>
-
-<div>
-	<img src="<?php echo asset('img/' . $content->image); ?>" />
-</div>
-<p><?php echo $content->content; ?></p>

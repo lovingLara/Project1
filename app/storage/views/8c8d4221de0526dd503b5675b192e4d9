@@ -1,4 +1,0 @@
-<?php $__env->startSection('content'); ?>
- 	<?php echo $post->title; ?>
-
-<?php $__env->stopSection(); ?>
