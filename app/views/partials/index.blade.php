@@ -3,6 +3,12 @@
 	<a href="#">x</a>
 	<h3>Registration Form</h3>
 	<form action="{{URL::route('newUser')}}" method="post" autocomplete="off">
+
+	    <div class="form-group">
+                			<label for="fname">Display Name</label>
+                			<input type="text" class="form-control" id="disp" name="disp" placeholder="Displayname..." required>
+        </div>
+
 		<div class="form-group">
 			<label for="fname">Firstname</label>
 			<input type="text" class="form-control" id="fname" name="fname" placeholder="Firstname..." required>
@@ -36,15 +42,12 @@
 @stop
 @section('nav')
 	<div class="logo">
-		<h4>Tacloban <span>Times</span></h4>
-	</div>
-
+    		<h4>Caught in the<span>Act</span></h4>
+    </div>
 	<div class="np"></div>
 	<div class="parent-nav">
 		<div>
 			<ul>
-				<li><img src="img/facebook.ico" class="icons"/></li>
-				<li><img src="img/twitter.ico" class="icons"></li>
 				<li><a href="#login">Login</a>/<a href="#reg">Register</a></li>
 			</ul>
 		</div>
@@ -54,29 +57,29 @@
 		<ul>
 			<li><a href="{{ URL::to('/')}}">NEWSFEED</a></li>
 			<li><a href="{{ URL::route('howto') }}">HOW TO SUBMIT</a></li>
-			<li><a href="">VIDEOS</a></li>
+			<li><a href="{{ URL::action('UsersController@video') }}">VIDEOS</a></li>
 			<li class="pencil"><a href="{{ URL::route('newPost')}}">SUBMIT A REPORT</a></li>
 			
 		</ul>
 	</div>
-	
 @stop
 
-<!---Slideshow-->
 @section('headlines')
-   <div class="slides">
-   <div class="slidesContainer">
-   <ul>
-   @foreach($Lpost as $post)
-      <li class="slide">
-         <img src="{{ asset('img/' . $post->image) }}"/><br>
-         <figcaption><a href="{{ URL::action('LoginUsersController@viewPost', array('id' => $post->id ))}}">{{$post->title}}</a></figcaption>
-      </li>
+    <div class="boxs">
+        <span>Top Story</span>
+    </div>
+    <div class="parentCnt">
 
-    @endforeach
-    </ul>
-   </div>
-   </div>
+            <div class="wrapper">
+            @foreach($Lpost as $post)
+                    <div class="cnt" id="itemOne">
+                    <a href=""><figcaption>{{$post->title}}</figcaption></a>
+                     <img src="{{ asset('img/' .$post->image) }}" />
+                    </div>
+            @endforeach
+           </div>
+    </div><br>
+    <hr>
 @stop
 
 @section('content')
@@ -93,7 +96,7 @@
 					<div class="likes"><span class="glyphicon glyphicon-heart"></span><d>{{$post->likes}}<d></div>
 					<div class="caption">
 					<b><h4>{{$post->title}}</h4></b>
-					<a href="{{ URL::action('LoginUsersController@viewPost' , array('id' => $post->id))}}">Read More</a>
+					<a href="{{ URL::action('UsersController@view_post' , array('id' => $post->id))}}">Read More</a>
 					<hr>
 					<d>{{$post->created_at->toFormattedDateString()}}</d>
 					</div>
@@ -124,7 +127,6 @@
 				<input type="password" class="form-control" id="password" name="password" placeholder="Password..." required>
 			</div>
 			 <label>
-		      <input type="checkbox"> Remember me
 		    </label><br><br>
 			 
 				<button type="submit" class="form-btn">Login</button>
@@ -134,7 +136,7 @@
 @section('errors')
 	@if ($errors->any())
         @if(Session::has('message'))
-    	    <div class="alert alert-info" role="alert">
+    	    <div class="alert alert-danger" role="alert">
             	  		{{ Session::get('message')}}
             </div>
     	@endif

@@ -1,24 +1,44 @@
-@section('nav')
-	<div class="logo">
-		<h4>Tacloban <span>Times</span></h4>
-	</div>
+@section('name')
+	 | {{$user->fname}}
+@stop
 
+
+
+@section('nav')
+	<div class="hidden-nav">
+		<ul>
+			<li>Home</li>
+			<li>Sports</li>
+			<li>General</li>
+			<li>News</li>
+			<li>Entertainment</li>
+		</ul>
+	</div>
+	<div class="logo">
+        		<h4>Caught in the<span>Act</span></h4>
+        </div>
 	<div class="np"></div>
 	<div class="parent-nav">
 		<div>
 			<ul>
-				<li><img src="img/facebook.ico" class="icons"/></li>
-				<li><img src="img/twitter.ico" class="icons"></li>
-				<li><a href="#login">Login</a>/<a href="#reg">Register</a></li>
+
+				<li><a href="{{ URL::route('profile') }}" class="icons"><img src="{{ asset('img/' . $user->pic) }}" /></a>
+					<ul>
+						<li><a href="{{ URL::route('profile') }}">Settings</a></li>
+						<li><a href="{{ URL::route('logout')}}">Logout</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
-	<div class="mid">{{$date->toFormattedDateString()}}</div>
+	<div class="mid">
+		{{$date->toFormattedDateString()}}
+	</div>
 	<div class="below-nav">
 		<ul>
-			<li><a href="{{ URL::to('/')}}">NEWSFEED</a></li>
-			<li><a href="{{ URL::route('howto') }}">HOW TO SUBMIT</a></li>
-			<li><a href="">VIDEOS</a></li>
+			<li><a href="{{ URL::route('dashboard')}}">NEWSFEED</a></li>
+			<li><a href="{{ URL::route('viewHow') }}">HOW TO SUBMIT</a></li>
+			<li><a href="{{ URL::route('video')}}">VIDEOS</a></li>
 			<li class="pencil"><a href="{{ URL::route('newPost')}}">SUBMIT A REPORT</a></li>
 
 		</ul>
@@ -102,7 +122,7 @@
        </div>
        <div class="col-md-2">
        <hr>
-        <span>"Please be mindful about the words that you are to going to user to avoid offending people"</span>
+        <span>"Avoid using word that may offend People"</span>
        <hr>
        </div>
 </div>

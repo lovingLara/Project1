@@ -11,7 +11,7 @@
 
 	
 </head>
-<body>
+<body >
 		{{HTML::script('js/jquery.js')}}
 		<div class="mod" id="login">
 			<div class="mod-cont">	
@@ -33,7 +33,7 @@
 			@yield('errors')
 		</div>
 
-		@yield('headlines')
+       @yield('headlines')
 
 		<!--Content-->
 		<div class="content">
@@ -44,6 +44,6 @@
 		<!--Footer-->
 		<div class="footer">
 			@yield('footer')
-		</div>	
+		</div>
 </body>
 </html>

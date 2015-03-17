@@ -21,9 +21,20 @@ Route::post('/login', array(
 	'as' => 'loginUser'
 	));
 
+Route::get('viewPost{id}',array(
+    'uses' => 'UsersController@view_post',
+    'as' => 'view_post'
+    ));
+
 Route::get('/howtoSubmit', array(
     'uses' => 'UsersController@howto',
     'as' => 'howto'
+));
+
+Route::get('/Videos', array(
+    'uses' => 'UsersController@video',
+    'as' => 'video'
+
 ));
 
 Route::group(array('before' => 'auth'), function()
@@ -33,6 +44,26 @@ Route::group(array('before' => 'auth'), function()
 			'uses' => 'LoginUsersController@profile',
 			'as' => 'profile'
 			));
+
+        Route::get('/Profiler/edit{id}', array(
+            'uses' => 'LoginUsersController@viewUpdater',
+            'as' => 'viewUpdater'
+            ));
+
+        Route::post('/Profile/edit{id}', array(
+            'uses' => 'LoginUsersController@updateUser',
+            'as' => 'updateUser'
+            ));
+
+        Route::get('/Profile/editPost{id}', array(
+        	'uses' => 'LoginUsersController@editPost',
+        	'as' => 'editPost'
+        	));
+
+        Route::post('/editPost{id}', array(
+        	'uses' => 'LoginUsersController@editPosts',
+        	'as' => 'editPosts'
+        	));
 
         Route::get('howtosubmit', array(
             'uses' => 'LoginUsersController@viewHow',
@@ -84,7 +115,7 @@ Route::group(array('before' => 'auth'), function()
 			'as' => 'createComment'
 			));
 
-		Route::post('updateUser{id}', array(
+		Route::post('/profile{id}', array(
 			'uses' => 'LoginUsersController@updateUser',
 			'as' => 'updateUser'
 			));
@@ -93,8 +124,13 @@ Route::group(array('before' => 'auth'), function()
 			'uses' => 'LoginUsersController@like',
 			'as' => 'like'
 			));
+
+        Route::get('Videoes{fname}',array(
+            'uses' => 'LoginUsersController@video',
+            'as' => 'video'
+            ));
 	});
-	
+
 
 Route::group(array('before' => 'Auth'), function()
 	{
@@ -102,24 +138,20 @@ Route::group(array('before' => 'Auth'), function()
 			'uses' => 'AdminController@index',
 			'as' => 'index'
 			));
-        Route::post('/admin/search', array(
-            'uses' => 'AdminController@search',
-            'as' => 'search'
-            ));
 
-		Route::get('/logout', array(
-			'uses' => 'AdminController@logout',
-			'as' => 'logout'
-			));
+        Route::post('admin/search', array(
+            'uses' => 'AdminController@search_keyword',
+            'as' => 'search_keyword'
+             ));
 
 		Route::get('admin/view', array(
 			'uses' => 'AdminController@view',
 			'as' => 'view'
 			));
 
-		Route::get('admin/update{id}', array(
-			'uses' => 'AdminController@update',
-			'as' => 'update'
+		Route::get('admin/permit{id}', array(
+			'uses' => 'AdminController@permit',
+			'as' => 'permit'
 			));
 
 		Route::get('admin/post{id}', array(
@@ -167,9 +199,29 @@ Route::group(array('before' => 'Auth'), function()
             'as' => 'headlines'
         ));
 
+        Route::post('admin/Submit', array(
+            'uses' => 'AdminController@hlsubmit',
+            'as' => 'hlsubmit'
+        ));
+
         Route::post('admin/headlines', array(
             'uses' => 'AdminController@recieve',
             'as' => 'recieve'
+        ));
+
+        Route::get('admin/deleteUser{id}',array(
+            'uses' => 'AdminController@userdelete',
+            'as' => 'userdelete'
+        ));
+
+        Route::get('admin/userProfile{id}', array(
+           'uses' => 'AdminController@userprofile',
+            'as' => 'userprofile'
+        ));
+
+        Route::get('admin/pending', array(
+           'uses' => 'AdminController@pending',
+            'as' => 'pending'
         ));
 		
 });

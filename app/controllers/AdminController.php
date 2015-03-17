@@ -8,20 +8,36 @@ class AdminController extends \BaseController {
 		return View::make('admin.admin');
 	}
 
-    public function search()
+    public function userdelete($id)
     {
-        if(Response::json()){
-            RETURN 'submitted';
-        }
+        $user = User::find($id);
+        $user->delete();
+        return Redirect::back();
+    }
 
-      /*  $keyword = Input::get('keyword');
+    public function userprofile($id)
+    {
+        $user = User::find($id);
+        return View::make('admin.userprofile')
+                ->withUser($user);
+    }
 
-        $post = Post::where('title', 'LIKE', '%'.$keyword.'%')->get();
+    public function search_keyword()
+    {
+        $input = Input::get('keyword');
+        $result = Post::where('title','LIKE','%' .$input. '%')->get();
 
-        return Redirect::route('index')->with('posts', $post);
-      */
+        return View::make('admin.result')
+                ->withResults($result);
+    }
 
+    public function permit($id)
+    {
+            $post = Post::find($id);
+            $post->reviewed = 1;
+            $post->save();
 
+            return Redirect::back();
     }
 
 	public function view()
@@ -35,43 +51,38 @@ class AdminController extends \BaseController {
         return View::make('admin.headlines');
     }
 
-    public function recieve()
+    public function hlsubmit()
     {
-        $image = Input::file('image');
-        $filename = $image->getClientOriginalName();
+        if(Input::hasFile('image')){
+            $image = Input::file('image');
+            $filename = $image->getClientOriginalName();
+            //saving image to public folder
+            Image::make($image->getRealPath())->resize('150', '150')->save('public/headlines' .$filename);
+            $headlines = new Headlines;
+            $headlines ->title = Input::get('title');
+            $headlines ->content = Input::get('content');
+            $headlines ->pic = $filename ;
+            $headlines->save();
 
-        //saving image to public folder
-        Image::make($image->getRealPath())->resize('150', '150')->save('public/headlines' .$filename);
-        $headlines = new Headlines;
-        $headlines ->title = Input::get('title');
-        $headlines ->content = Input::get('content');
-        $headlines ->pic = $filename ;
-        $headlines->save();
+        }
+            $headlines = new Headlines;
+            $headlines ->title = Input::get('title');
+            $headlines ->content = Input::get('content');
+            $headlines->save();
+
 
         return Redirect::route('headlines');
     }
 
-	public function update($id)
-	{
-		$post = Post::find($id);
-		$post->reviewed = 1;
-		$post->save();
-
-		return Redirect::route('view');
-	}
-
 	public function view_post($id)
 	{
 		$post = Post::find($id);
-
-		//dd($post);
 		return View::make('admin.view_post')->with('post', $post);	
 	}
 
 	public function delete($id)
 	{
 		$post = Post::find($id);
-
 		$post->delete();
 		return Redirect::route('view');
 	}
@@ -160,5 +171,44 @@ class AdminController extends \BaseController {
 			Auth::logout();
 			return Redirect::to('/');
 	}
+
+    public function pending()
+    {
+        $posts = Post::where('reviewed', '=' , 1)
+                    ->orderBy('created_at', 'DESC');
+        return View::make('admin.pending')
+        ->with('post',$posts);
+    }
+
+    public function post_head()
+    {
+        if(Input::hasFile('image') )
+        {
+            $mytime = Carbon\Carbon::now();
+            $image = Input::file('image');
+            $filename = $image->getClientOriginalName();
+            Image::make($image->getRealPath())->save('public/img/' . $filename);
+            $users = Auth::user();
+            //saving image to database
+            $post = new Post();
+            $post->title = Input::get('title');
+            $post->content = nl2br(Input::get('content'));
+            $post->image = $filename;
+            $users->post()->save($post);
+
+
+            return Redirect::route('headlines');
+        }
+        else
+        {
+            $users = Auth::user();
+            $post = new Post();
+            $post->title = Input::get('title');
+            $post->content = nl2br(Input::get('content'));;
+            $users->post()->save($post);
+            return Redirect::route('headlines');
+        }
+
+    }
 	
 }

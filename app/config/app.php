@@ -124,6 +124,7 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 	    'Thujohn\Share\ShareServiceProvider',
+        'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
 	),
 
 	/*

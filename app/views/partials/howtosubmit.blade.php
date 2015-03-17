@@ -1,14 +1,13 @@
 @section('nav')
 	<div class="logo">
-		<h4>Tacloban <span>Times</span></h4>
-	</div>
+        		<h4>Caught in the<span>Act</span></h4>
+    </div>
 
 	<div class="np"></div>
 	<div class="parent-nav">
 		<div>
 			<ul>
-				<li><img src="img/facebook.ico" class="icons"/></li>
-				<li><img src="img/twitter.ico" class="icons"></li>
+
 				<li><a href="#login">Login</a>/<a href="#reg">Register</a></li>
 			</ul>
 		</div>
@@ -18,7 +17,7 @@
 		<ul>
 			<li><a href="{{ URL::to('/')}}">NEWSFEED</a></li>
 			<li><a href="{{ URL::route('howto') }}">HOW TO SUBMIT</a></li>
-			<li><a href="">VIDEOS</a></li>
+			<li><a href="{{ URL::action('UsersController@video') }}">VIDEOS</a></li>
 			<li class="pencil"><a href="{{ URL::route('newPost')}}">SUBMIT A REPORT</a></li>
 
 		</ul>
@@ -29,6 +28,13 @@
 	<a href="#">x</a>
 	<h3>Registration Form</h3>
 	<form action="{{URL::route('newUser')}}" method="post" autocomplete="off">
+
+		<div class="form-group">
+        			<label for="fname">Display Name</label>
+        			<input type="text" class="form-control" id="disp" name="disp" placeholder="Displayname..." required>
+        </div>
+
+
 		<div class="form-group">
 			<label for="fname">Firstname</label>
 			<input type="text" class="form-control" id="fname" name="fname" placeholder="Firstname..." required>
@@ -86,8 +92,7 @@
             <li class="hvr-bob"><span class="glyphicon glyphicon-ban-circle"></span></li>
         </ul>
 
-
-       <div class="col-md-2">
+       <div id="qwerty" class="col-md-2">
        <hr>
         <span>"A user is required to register an account before he/she can submit a report"
         <d>Upper-right corner to register</d></span>
@@ -102,9 +107,10 @@
        </div>
        <div class="col-md-2">
        <hr>
-        <span>"Please be mindful about the words that you are to going to user to avoid offending people"</span>
+        <span style="text-align: justify">"Avoid using word that may offend People"</span>
        <hr>
        </div>
+
 </div>
 @stop
 

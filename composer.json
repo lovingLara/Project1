@@ -11,7 +11,8 @@
 		"torann/laravel-weather": "0.1.*@dev",
 		"thujohn/share": "dev-master",
 		"facebook/php-sdk": "~3.2",
-		"facebook/php-sdk-v4": "~4.0"
+		"facebook/php-sdk-v4": "~4.0",
+		"heybigname/backup-manager": "0.3.*"
 
 	},
 	"autoload": {

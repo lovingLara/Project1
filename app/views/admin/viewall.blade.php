@@ -34,7 +34,7 @@
 				<td>{{$posts->created_at->toFormattedDateString()}}</td>
 				<td><a href="{{ URL::route('view_post', array('id' => $posts->id))}}">ReviewPost</a> | 
 					<a href="{{ URL::route('delete', array('id' => $posts->id))}}">Delete</a> | 
-					<a href="{{ URL::route('update', array('id' => $posts->id))}}">Confirm</a> |
+					<a href="{{ URL::route('permit', array('id' => $posts->id))}}">Confirm</a> |
 					<a href="{{ URL::route('mailPost', array('id' => $posts->id))}}">MailPost</a>
 				</td>
 			</tr>

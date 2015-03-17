@@ -32,6 +32,7 @@
 				<th>Status</th>
 				<th>Online</th>
 				<th>Join Date</th>
+				<th># of Posts</th>
 				<th>Actions</th>
 			</thead>
 			@foreach($users as $user)
@@ -42,11 +43,12 @@
 				<td>{{$user->status}}</td>
 				<td>{{$user->is_online}}</td>
 				<td>{{$user->created_at->toFormattedDateString()}}</td>
+				<td>{{$user->post->count()}}</td>
 				<td>
 					<a href="{{ URL::route('block', array('id' => $user->id))}}">Block</a> | 
-					<a href="">Delete</a> |
-					<a href="">View</a> |
-					<a href="{{ URL::route('unblock', array('id' => $user->id)) }}">Unblock</a>
+					<a href="{{ URL::route('userdelete') }}">Delete</a> |
+					<a href="{{ URL::route('unblock', array('id' => $user->id)) }}">Unblock</a> |
+					<a href="{{ URL::route('userprofile', array('id' => $user->id)) }}">View</a>
 				</td>
 			</tr>
 			@endforeach

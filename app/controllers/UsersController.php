@@ -6,8 +6,10 @@ class UsersController extends BaseController {
 
 	public function index()
 	{
-		$posts = Post::where('reviewed', '=' , 1)->orderBy('created_at', 'DESC');
-        $post = Post::where('headline', '=' , 1)->get();
+		$posts = Post::where('reviewed', '=' , 1)
+            ->where('videos', '=', '')
+            ->orderBy('created_at', 'DESC');
+        $post = Post::where('headline', '=' , 1)->take(1)->orderBy('created_at', 'DESC')->get();
 		$url = asset('img/logo.gif');
 		$mytime = Carbon\Carbon::now();
         $headlines = Headlines::orderBy('created_at', 'DESC')->get();
@@ -15,7 +17,6 @@ class UsersController extends BaseController {
             array('posts' => $posts->paginate(12)))
             ->with('img', $url)
             ->with('date' , $mytime)
-            ->with('headline',$headlines)
             ->with('Lpost', $post);
 	}
 
@@ -28,6 +29,7 @@ class UsersController extends BaseController {
 	public function newUser()
 	{
 		$newUser = new user();
+        $newUser->displayname = Input::get('disp');
 		$newUser->fname = Input::get('fname');
 		$newUser->surname = Input::get('surname');
 		$newUser->email = Input::get('email');
@@ -80,4 +82,25 @@ class UsersController extends BaseController {
 		}
 		
 	}
+
+    public function view_post($id)
+    {
+        $date = Carbon\Carbon::now();
+        $post = Post::find($id);
+        $posts = Post::where('headline', '=' , 1)->get();
+        $this->layout->content = View::make('partials.viewPost')
+            ->with('posts', $post)
+            ->with('date',$date);
+    }
+
+    public function video()
+    {
+        $posts = Post::where('reviewed', '=' , 1)
+            ->where('videos', '!=', '')
+            ->orderBy('created_at', 'DESC')->paginate(12);
+        $mytime = Carbon\Carbon::now();
+        $this->layout->content = View::make('partials.viewVid',
+            array('posts' => $posts))
+            ->with('date' , $mytime);
+    }
 }
